@@ -1,23 +1,34 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Portfolio from "@/components/Portfolio";
-import Footer from "@/components/Footer";
+"use client";
+
+import dynamic from "next/dynamic";
+import { useState, useCallback } from "react";
+import UIOverlay from "@/components/UIOverlay";
+
+const IglooScene = dynamic(() => import("@/components/IglooScene"), {
+  ssr: false,
+});
 
 export default function Home() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const handleScroll = useCallback((progress: number) => {
+    setScrollProgress(progress);
+  }, []);
+
   return (
-    <div className="noise-overlay vignette">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-ice-200 focus:px-4 focus:py-2 focus:text-ice-900"
-      >
-        Skip to main content
-      </a>
-      <Header />
-      <main id="main-content">
-        <Hero />
-        <Portfolio />
-        <Footer />
-      </main>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        position: "relative",
+        overflow: "hidden",
+        background: "#a0a5b1",
+      }}
+    >
+      <div style={{ position: "absolute", inset: 0 }}>
+        <IglooScene scrollProgress={scrollProgress} />
+      </div>
+      <UIOverlay scrollProgress={scrollProgress} onScroll={handleScroll} />
     </div>
   );
 }

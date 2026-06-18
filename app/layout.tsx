@@ -1,35 +1,14 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Igloo Inc. — Building the Largest Onchain Community",
+  title: "Igloo Inc.",
   description:
-    "Igloo Inc. is the parent company of Pudgy Penguins and OverpassIP, driving the consumer crypto revolution by building the largest onchain community.",
-  keywords: [
-    "Igloo Inc",
-    "Pudgy Penguins",
-    "OverpassIP",
-    "Abstract Chain",
-    "Web3",
-    "crypto",
-    "onchain community",
-    "NFT",
-  ],
+    "Our mission is to create the largest onchain community, driving the consumer crypto revolution.",
   openGraph: {
-    title: "Igloo Inc. — Building the Largest Onchain Community",
+    title: "Igloo Inc.",
     description:
-      "Parent company of Pudgy Penguins and OverpassIP. Driving the consumer crypto revolution.",
+      "Our mission is to create the largest onchain community, driving the consumer crypto revolution.",
     url: "https://www.igloo.inc/",
     siteName: "Igloo Inc.",
     type: "website",
@@ -37,17 +16,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Igloo Inc. — Building the Largest Onchain Community",
+    title: "Igloo Inc.",
     description:
-      "Parent company of Pudgy Penguins and OverpassIP. Driving the consumer crypto revolution.",
-    creator: "@IglooInc",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  alternates: {
-    canonical: "https://www.igloo.inc/",
+      "Our mission is to create the largest onchain community, driving the consumer crypto revolution.",
   },
 };
 
@@ -57,10 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
-    >
+    <html lang="en">
       <head>
         <script
           type="application/ld+json"
@@ -71,32 +39,19 @@ export default function RootLayout({
               name: "Igloo Inc.",
               url: "https://www.igloo.inc/",
               description:
-                "Parent company of Pudgy Penguins and OverpassIP, driving the consumer crypto revolution.",
+                "Our mission is to create the largest onchain community, driving the consumer crypto revolution.",
               sameAs: [
-                "https://x.com/IglooInc",
+                "https://twitter.com/iglooinc",
                 "https://www.linkedin.com/company/igloo-incorporated",
-              ],
-              subOrganization: [
-                {
-                  "@type": "Organization",
-                  name: "Pudgy Penguins",
-                  url: "https://www.pudgypenguins.com/",
-                },
-                {
-                  "@type": "Organization",
-                  name: "OverpassIP",
-                },
-                {
-                  "@type": "Organization",
-                  name: "Abstract Chain",
-                  url: "https://www.abs.xyz/",
-                },
+                "https://medium.com/@iglooinc",
               ],
             }),
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body style={{ width: "100%", height: "100%", overflow: "hidden" }}>
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,62 +1,68 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&";
 
 interface ScrambleTextProps {
   text: string;
   className?: string;
+  delay?: number;
   speed?: number;
+  trigger?: boolean;
 }
 
 export default function ScrambleText({
   text,
   className = "",
+  delay = 0,
   speed = 30,
+  trigger = true,
 }: ScrambleTextProps) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [display, setDisplay] = useState(text);
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const [display, setDisplay] = useState("");
+  const [started, setStarted] = useState(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval>>(undefined);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el || hasAnimated) return;
-
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setHasAnimated(true);
-          observer.disconnect();
-          scramble();
-        }
-      },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-
-    function scramble() {
-      let frame = 0;
-      const total = text.length;
-      const interval = setInterval(() => {
-        const resolved = text.slice(0, frame);
-        const remaining = Array.from({ length: total - frame }, () =>
-          chars[Math.floor(Math.random() * chars.length)]
-        ).join("");
-        setDisplay(resolved + remaining);
-        frame++;
-        if (frame > total) clearInterval(interval);
-      }, speed);
+    if (!trigger) {
+      setDisplay("");
+      setStarted(false);
+      return;
     }
-  }, [text, speed, hasAnimated]);
 
-  return (
-    <span ref={ref} className={`font-mono ${className}`} aria-label={text}>
-      <span aria-hidden>{display}</span>
-    </span>
-  );
+    const timeout = setTimeout(() => {
+      setStarted(true);
+      let iteration = 0;
+      const maxIterations = text.length;
+
+      intervalRef.current = setInterval(() => {
+        setDisplay(
+          text
+            .split("")
+            .map((char, i) => {
+              if (char === " ") return " ";
+              if (i < iteration) return text[i];
+              return chars[Math.floor(Math.random() * chars.length)];
+            })
+            .join("")
+        );
+
+        iteration += 1 / 3;
+
+        if (iteration >= maxIterations + 1) {
+          setDisplay(text);
+          if (intervalRef.current) clearInterval(intervalRef.current);
+        }
+      }, speed);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [text, delay, speed, trigger]);
+
+  if (!started && !display) return <span className={className}>&nbsp;</span>;
+
+  return <span className={className}>{display}</span>;
 }
