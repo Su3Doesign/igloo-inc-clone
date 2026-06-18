@@ -22,41 +22,76 @@ export default function PortfolioCard({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-ice-700/20 bg-ice-800/20 p-8 backdrop-blur-md transition-all duration-500 hover:border-ice-500/30 hover:bg-ice-800/40 hover:shadow-[0_0_40px_rgba(182,186,197,0.06)]"
-      initial={{ opacity: 0, y: 40 }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-ice-700/15 p-[1px] transition-all duration-700"
+      initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.15, duration: 0.6, ease: "easeOut" }}
-      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: index * 0.2, duration: 0.8, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-80px" }}
     >
-      {/* Ice shimmer effect */}
+      {/* Animated border gradient */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-700 group-hover:opacity-100"
         style={{
           background:
-            "linear-gradient(105deg, transparent 40%, rgba(182,186,197,0.06) 45%, rgba(182,186,197,0.12) 50%, rgba(182,186,197,0.06) 55%, transparent 60%)",
-          backgroundSize: "200% 100%",
-          animation: "shimmer 2s infinite linear",
+            "linear-gradient(135deg, rgba(182,186,197,0.2) 0%, transparent 40%, transparent 60%, rgba(182,186,197,0.1) 100%)",
         }}
       />
 
-      {/* Frost border glow */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{
-          boxShadow: "inset 0 0 30px rgba(182,186,197,0.05), 0 0 15px rgba(182,186,197,0.03)",
-        }}
-      />
+      {/* Card inner */}
+      <div className="relative z-10 flex h-full flex-col rounded-[15px] bg-[#0c0f18]/80 p-10 backdrop-blur-xl">
+        {/* Ice shimmer sweep */}
+        <div
+          className="pointer-events-none absolute inset-0 rounded-[15px] opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+          style={{
+            background:
+              "linear-gradient(105deg, transparent 30%, rgba(182,186,197,0.04) 40%, rgba(182,186,197,0.08) 50%, rgba(182,186,197,0.04) 60%, transparent 70%)",
+            backgroundSize: "200% 100%",
+            animation: "shimmer 3s infinite linear",
+          }}
+        />
 
-      <div className="relative z-10">
-        <span className="mb-4 block text-3xl">{icon}</span>
-        <h3 className="mb-3 text-xl font-bold tracking-tight text-ice-100 transition-colors group-hover:text-white">
+        {/* Frost glow top edge */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-ice-400/20 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+
+        {/* Icon */}
+        <div className="relative mb-6">
+          <span className="text-4xl">{icon}</span>
+          <div
+            className="absolute -inset-3 rounded-full opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+            style={{
+              background: "radial-gradient(circle, rgba(182,186,197,0.06) 0%, transparent 70%)",
+            }}
+          />
+        </div>
+
+        {/* Title */}
+        <h3
+          className="mb-4 text-2xl font-bold tracking-tight text-ice-100 transition-all duration-500 group-hover:text-white"
+          style={{
+            transition: "text-shadow 0.5s ease",
+          }}
+          onMouseEnter={(e) => {
+            (e.target as HTMLElement).style.textShadow = "-1px 0 #ff004030, 1px 0 #00d4ff30";
+          }}
+          onMouseLeave={(e) => {
+            (e.target as HTMLElement).style.textShadow = "none";
+          }}
+        >
           {title}
         </h3>
-        <p className="text-sm leading-relaxed text-ice-400 transition-colors group-hover:text-ice-300">
+
+        {/* Description */}
+        <p className="mb-8 flex-1 text-sm leading-[1.8] text-ice-500 transition-colors duration-500 group-hover:text-ice-400">
           {description}
         </p>
-        <div className="mt-6 flex items-center gap-2 text-xs font-medium tracking-wide text-ice-500 transition-colors group-hover:text-ice-300">
+
+        {/* Link row */}
+        <div className="flex items-center gap-3 border-t border-ice-700/10 pt-6 text-xs font-medium uppercase tracking-[0.2em] text-ice-600 transition-colors duration-500 group-hover:text-ice-300">
           <span>Explore</span>
-          <span className="transition-transform group-hover:translate-x-1">→</span>
+          <span className="inline-block transition-transform duration-500 group-hover:translate-x-2">
+            →
+          </span>
+          <div className="ml-auto h-[1px] flex-1 bg-gradient-to-r from-ice-700/20 to-transparent transition-all duration-700 group-hover:from-ice-500/30" />
         </div>
       </div>
     </motion.a>

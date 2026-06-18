@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <>
+    <div className="noise-overlay vignette">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-ice-200 focus:px-4 focus:py-2 focus:text-ice-900"
@@ -18,6 +18,6 @@ export default function Home() {
         <Portfolio />
         <Footer />
       </main>
-    </>
+    </div>
   );
 }

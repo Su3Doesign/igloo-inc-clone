@@ -30,36 +30,75 @@ const projects = [
 
 export default function Portfolio() {
   return (
-    <section id="portfolio" className="relative px-6 py-32">
-      <div className="mx-auto max-w-6xl">
+    <section
+      id="portfolio"
+      className="snap-section relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-32"
+    >
+      {/* Background gradient */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(56,62,78,0.15) 0%, transparent 60%)",
+        }}
+      />
+
+      {/* Top fade from hero */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#060810] to-transparent" />
+
+      <div className="relative z-10 mx-auto w-full max-w-6xl">
+        {/* Section header */}
         <motion.div
-          className="mb-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
+          className="mb-20 text-center"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <span className="mb-4 block text-xs font-medium uppercase tracking-[0.3em] text-ice-500">
+          <motion.span
+            className="mb-6 inline-block text-[10px] font-medium uppercase tracking-[0.4em] text-ice-600"
+            initial={{ opacity: 0, letterSpacing: "0.2em" }}
+            whileInView={{ opacity: 1, letterSpacing: "0.4em" }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+          >
             Our Ecosystem
-          </span>
+          </motion.span>
           <GlitchText
             as="h2"
-            className="text-4xl font-bold tracking-tight text-ice-100 sm:text-5xl"
+            className="text-5xl font-bold tracking-[-0.02em] text-ice-100 sm:text-6xl"
           >
             Portfolio
           </GlitchText>
-          <p className="mx-auto mt-4 max-w-lg text-ice-400">
+          <motion.div
+            className="mx-auto mt-6 h-[1px] w-16 bg-gradient-to-r from-transparent via-ice-500 to-transparent"
+            initial={{ width: 0, opacity: 0 }}
+            whileInView={{ width: 64, opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            viewport={{ once: true }}
+          />
+          <motion.p
+            className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-ice-500"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             Three pillars driving the consumer crypto revolution — from NFTs to
             infrastructure.
-          </p>
+          </motion.p>
         </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        {/* Cards grid */}
+        <div className="grid gap-8 md:grid-cols-3">
           {projects.map((project, i) => (
             <PortfolioCard key={project.title} {...project} index={i} />
           ))}
         </div>
       </div>
+
+      {/* Bottom fade */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#060810] to-transparent" />
     </section>
   );
 }

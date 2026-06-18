@@ -20,6 +20,9 @@ export default function GlitchText({
     const el = ref.current;
     if (!el) return;
 
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
     const onEnter = () => setGlitching(true);
     const onLeave = () => setGlitching(false);
     el.addEventListener("mouseenter", onEnter);
@@ -37,20 +40,24 @@ export default function GlitchText({
         <>
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-0 text-[#ff0040] opacity-70"
+            className="pointer-events-none absolute inset-0"
             style={{
-              animation: "glitch 0.3s infinite linear alternate-reverse",
+              color: "#ff0040",
+              animation: "glitch-1 0.25s infinite linear alternate-reverse",
               mixBlendMode: "screen",
+              opacity: 0.6,
             }}
           >
             {children}
           </span>
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-0 text-[#00d4ff] opacity-70"
+            className="pointer-events-none absolute inset-0"
             style={{
-              animation: "glitch 0.3s infinite linear reverse",
+              color: "#00d4ff",
+              animation: "glitch-2 0.25s infinite linear reverse",
               mixBlendMode: "screen",
+              opacity: 0.6,
             }}
           >
             {children}

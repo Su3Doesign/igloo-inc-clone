@@ -22,15 +22,6 @@ const socialLinks = [
       </svg>
     ),
   },
-  {
-    label: "Website",
-    href: "https://www.igloo.inc/",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden>
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-      </svg>
-    ),
-  },
 ];
 
 const ecosystemLinks = [
@@ -41,88 +32,98 @@ const ecosystemLinks = [
 
 export default function Footer() {
   return (
-    <section id="links" className="relative overflow-hidden px-6 py-32">
-      <ParticleField />
+    <section
+      id="links"
+      className="snap-section relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-32"
+    >
+      {/* Particle background */}
+      <div className="absolute inset-0 opacity-40">
+        <ParticleField count={60} speed={0.2} connectionDistance={100} />
+      </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl">
+      {/* Top fade */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#060810] to-transparent" />
+
+      <div className="relative z-10 mx-auto w-full max-w-4xl">
+        {/* Header */}
         <motion.div
-          className="mb-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
+          className="mb-20 text-center"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <span className="mb-4 block text-xs font-medium uppercase tracking-[0.3em] text-ice-500">
+          <span className="mb-6 inline-block text-[10px] font-medium uppercase tracking-[0.4em] text-ice-600">
             Connect
           </span>
-          <h2 className="text-4xl font-bold tracking-tight text-ice-100 sm:text-5xl">
+          <h2 className="text-5xl font-bold tracking-[-0.02em] text-ice-100 sm:text-6xl">
             Join the Community
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-ice-400">
-            Follow our journey as we build the future of onchain experiences.
-          </p>
+          <div className="mx-auto mt-6 h-[1px] w-16 bg-gradient-to-r from-transparent via-ice-500 to-transparent" />
         </motion.div>
 
-        <div className="grid gap-12 md:grid-cols-2">
-          {/* Social links */}
+        <div className="grid gap-16 md:grid-cols-2">
+          {/* Social */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h3 className="mb-6 text-sm font-medium uppercase tracking-[0.2em] text-ice-400">
+            <h3 className="mb-8 text-[10px] font-medium uppercase tracking-[0.3em] text-ice-600">
               Follow Us
             </h3>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-xl border border-ice-700/20 bg-ice-800/20 px-6 py-4 backdrop-blur-sm transition-all hover:border-ice-500/30 hover:bg-ice-800/40"
+                  className="group relative flex items-center gap-5 overflow-hidden rounded-xl border border-ice-700/10 bg-[#0c0f18]/60 px-7 py-5 backdrop-blur-md transition-all duration-500 hover:border-ice-600/20 hover:bg-[#0c0f18]/80"
                   aria-label={`Visit ${link.label}`}
                 >
-                  <span className="text-ice-400 transition-colors group-hover:text-ice-200">
+                  <span className="text-ice-500 transition-colors duration-500 group-hover:text-ice-200">
                     {link.icon}
                   </span>
-                  <span className="text-sm font-medium text-ice-300 transition-colors group-hover:text-ice-100">
+                  <span className="text-sm font-medium tracking-wide text-ice-400 transition-colors duration-500 group-hover:text-ice-200">
                     {link.label}
                   </span>
-                  <span className="ml-auto text-ice-600 transition-transform group-hover:translate-x-1 group-hover:text-ice-400">
+                  <span className="ml-auto text-ice-700 transition-all duration-500 group-hover:translate-x-1 group-hover:text-ice-400">
                     →
                   </span>
+                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-ice-200/[0.02] to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                 </a>
               ))}
             </div>
           </motion.div>
 
-          {/* Ecosystem links */}
+          {/* Ecosystem */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h3 className="mb-6 text-sm font-medium uppercase tracking-[0.2em] text-ice-400">
+            <h3 className="mb-8 text-[10px] font-medium uppercase tracking-[0.3em] text-ice-600">
               Ecosystem
             </h3>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               {ecosystemLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-xl border border-ice-700/20 bg-ice-800/20 px-6 py-4 backdrop-blur-sm transition-all hover:border-ice-500/30 hover:bg-ice-800/40"
+                  className="group relative flex items-center gap-5 overflow-hidden rounded-xl border border-ice-700/10 bg-[#0c0f18]/60 px-7 py-5 backdrop-blur-md transition-all duration-500 hover:border-ice-600/20 hover:bg-[#0c0f18]/80"
                 >
-                  <span className="text-sm font-medium text-ice-300 transition-colors group-hover:text-ice-100">
+                  <span className="text-sm font-medium tracking-wide text-ice-400 transition-colors duration-500 group-hover:text-ice-200">
                     {link.label}
                   </span>
-                  <span className="ml-auto text-ice-600 transition-transform group-hover:translate-x-1 group-hover:text-ice-400">
+                  <span className="ml-auto text-ice-700 transition-all duration-500 group-hover:translate-x-1 group-hover:text-ice-400">
                     →
                   </span>
+                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-ice-200/[0.02] to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                 </a>
               ))}
             </div>
@@ -130,13 +131,19 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Actual footer */}
-      <footer className="relative z-10 mx-auto mt-24 max-w-6xl border-t border-ice-700/20 pt-8" role="contentinfo">
+      {/* Footer bar */}
+      <footer
+        className="relative z-10 mx-auto mt-32 w-full max-w-4xl border-t border-ice-800/30 pt-8"
+        role="contentinfo"
+      >
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <span className="font-mono text-sm font-bold tracking-wider text-ice-500">
-            IGLOO<span className="text-ice-600">.</span>INC
+          <span
+            className="font-mono text-sm font-bold tracking-[0.15em] text-ice-700"
+            style={{ animation: "chromatic 4s ease-in-out infinite" }}
+          >
+            IGLOO.INC
           </span>
-          <p className="text-xs text-ice-600">
+          <p className="text-[11px] tracking-wide text-ice-800">
             © {new Date().getFullYear()} Igloo Inc. All rights reserved.
           </p>
         </div>
